@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use App\Services\GrantedService;
 
 class RegisteredUserController extends Controller
 {
@@ -31,7 +32,7 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request)
+    public function store(Request $request, GrantedService $grant)
     {
         // dd($request->all());
         // echo $request->name;
@@ -58,6 +59,7 @@ class RegisteredUserController extends Controller
         event(new Registered($user));
 
         Auth::login($user);
+        $grant->set_permission();
 
         return redirect(RouteServiceProvider::HOME);
     }

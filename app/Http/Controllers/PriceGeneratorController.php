@@ -388,7 +388,8 @@ class PriceGeneratorController extends Controller
                 left join mst_komoditas on komoditas_id = prc_komoditas_id
                 left join mst_buyer on buyer_id = prc_buyer_id
                 left join pricing_final on prdetail_prc_id = prc_id
-               where prdetail_prc_incoterms = 'fob'";
+               where prdetail_prc_incoterms = 'fob'
+                 and prc_createdby = ".session('user_id');
         $order = 'order by prc_buyer_id asc';
         
         $dtt->set_table($q);

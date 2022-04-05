@@ -12,6 +12,9 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use App\Services\GrantedService;
 
+use App\Models\MemberProfileModel as Profile;
+use App\Models\MemberComproModel as Compro;
+
 class RegisteredUserController extends Controller
 {
     /**
@@ -55,6 +58,8 @@ class RegisteredUserController extends Controller
         // die;
 
         $user = User::create($data);
+        Profile::create(['profile_user_id' => $user->id]);
+        Compro::create(['comp_user_id' => $user->id]);
 
         event(new Registered($user));
 

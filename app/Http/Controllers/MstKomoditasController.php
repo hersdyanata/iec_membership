@@ -17,7 +17,7 @@ use App\Services\GrantedService;
 class MstKomoditasController extends Controller
 {
     public function __construct(){
-        $this->middleware(['auth', 'granted']);
+        $this->middleware(['auth', 'granted', 'verified']);
     }
 
     public function index(){
@@ -96,7 +96,7 @@ class MstKomoditasController extends Controller
             null, 'komoditas_nama', 'komoditas_prefix',
         );
 
-        $q = "select * from mst_komoditas";
+        $q = "select * from mst_komoditas where komoditas_createdby = ".session('user_id');
         $order = 'order by komoditas_nama asc';
         
         $dtt->set_table($q);

@@ -12,6 +12,7 @@
 	<link href="{{ asset('assets/global/css/icons/material/styles.min.css') }}" rel="stylesheet" type="text/css">
 	<link href="{{ asset('assets/global/css/icons/fontawesome/styles.min.css') }}" rel="stylesheet" type="text/css">
 	<link href="{{ asset('assets/'.session('theme').'/css/all.min.css') }}" rel="stylesheet" type="text/css">
+	<link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/global/images/favicon/favicon-32x32.png') }}">
 	<!-- /global stylesheets -->
 
 	<!-- Core JS files -->

@@ -48,23 +48,6 @@
 
 @section('page_js')
 <script>
-    // var table = build_datatables( 
-    //     "tableData", 
-    //     "{{ route('user.list') }}", 
-    //     "{{ csrf_token() }}",
-    //     [0,-1]
-    // );
 
-    function preaction(i){
-        sw_delete(
-            "{{ route('user.predelete') }}",
-            "{{ csrf_token() }}",
-            i,
-            "{{ route('user.delete') }}",
-            "{{ csrf_token() }}",
-            "tableData",
-            table
-        );
-    }
 </script>
 @endsection

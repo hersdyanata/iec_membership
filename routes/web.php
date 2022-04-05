@@ -26,6 +26,8 @@ Route::get('/', function () {
 Route::name('main.')->group(function () {
     Route::get('dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard.index');
     Route::resource('profile', App\Http\Controllers\ProfileController::class);
+    Route::resource('compro', App\Http\Controllers\ComproController::class);
+    Route::resource('member', App\Http\Controllers\MemberController::class);
 });
 
 /* ======================================================================= Route List Core ======================================================================= */

@@ -307,12 +307,14 @@
             url: "{{ route('menu-manager.store') }}",
             data: $('#form_menu').serialize(),
             beforeSend: function(){
-                small_loader_open('section_menu');
+                // small_loader_open('section_menu');
             },
             success: function (s) {
-                sw_success_redirect(s, "{{ route('menu-manager.create') }}");
+                console.log(s);
+                // sw_success_redirect(s, "{{ route('menu-manager.create') }}");
             },
             error: function(e){
+                console.log(e);
                 if(e.status == 422){
                     sw_multi_error(e);
                 }else{
@@ -320,7 +322,7 @@
                 }
             },
             complete: function(){
-                small_loader_close('section_menu');
+                // small_loader_close('section_menu');
             }
         });
     }

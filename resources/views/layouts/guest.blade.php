@@ -12,6 +12,7 @@
 	<!-- <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css"> -->
 	<link href="{{ asset('assets/global/css/icons/icomoon/styles.min.css') }}" rel="stylesheet" type="text/css">
 	<link href="{{ asset('assets/material/css/all.min.css') }}" rel="stylesheet" type="text/css">
+	<link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/global/images/favicon/favicon-32x32.png') }}">
 	<!-- /global stylesheets -->
 
 	<!-- Core JS files -->

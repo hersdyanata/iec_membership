@@ -185,7 +185,7 @@ class GrantedService{
             $data = [
                 'user_id' => $userLogin->id,
                 'group_id' => $userLogin->group_id,
-                'group_name' => $userLogin->group_nama,
+                'group_name' => $group->group_nama,
                 'theme' => $userLogin->theme,
                 'granted_menu' => $arr_granted,
                 'all_menus' => $menus,

@@ -20,7 +20,7 @@ use App\Services\GrantedService;
 class MstSupplierController extends Controller
 {
     public function __construct(){
-        $this->middleware(['auth', 'granted']);
+        $this->middleware(['auth', 'granted', 'verified']);
     }
 
     public function index(){
@@ -106,7 +106,7 @@ class MstSupplierController extends Controller
             null, 'supplier_nama', 'supplier_alamat',
         );
 
-        $q = "select * from mst_supplier";
+        $q = "select * from mst_supplier where supplier_createdby = ".session('user_id');
         $order = 'order by supplier_nama asc';
         
         $dtt->set_table($q);

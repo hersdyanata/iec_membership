@@ -15,6 +15,12 @@
                     <span class="d-block text-muted">Lengkapi form dibawah ini</span>
                 </div>
 
+                @if ($errors->any())
+                    @foreach ($errors->all() as $error)
+                        <p class="text-danger text-center">{{ $error }}</p>
+                    @endforeach
+                @endif
+
                 <div class="form-group form-group-feedback form-group-feedback-left">
                     <input id="name" type="text" name="name" value="{{ old('name') }}" class="form-control" placeholder="Nama" autofocus>
                     <div class="form-control-feedback">

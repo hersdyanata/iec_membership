@@ -6,40 +6,45 @@
     <div class="row">
         <div class="col-xl-12">
             <div class="card">
-                <div class="card-header header-elements-inline">
-                    <h5 class="card-title">{{ $title }}</h5>
+                <div class="card-header bg-transparent border-bottom header-elements-sm-inline py-sm-0">
+                    <h5 class="card-title py-sm-3">{{ $title }}</h5>
+                    <div class="header-elements">
+                        <ul class="pagination pagination-pager justify-content-between">
+                            <li class="page-item">
+                                @if ( (session('group_id') != 0 && in_array('create', $page_permission)) || session('group_id') == 0 )
+                                    <a href="{{ route('tools.pricing_generator.create') }}" class="btn btn-purple btn-labeled btn-labeled-left">
+                                        <b><i class="icon-plus3"></i></b>Tambah
+                                    </a> 
+                                @endif
+                            </li>
+                            <li class="page-item">
+                                <button type="button" onclick="reload_table(table)" class="btn btn-warning btn-labeled btn-labeled-left ml-2">
+                                    <b><i class="icon-reload-alt"></i></b>Reload
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
 
                 <div class="card-body">
-                    @if ( (session('group_id') != 0 && in_array('create', $page_permission)) || session('group_id') == 0 )
-                        <a href="{{ route('tools.pricing_generator.create') }}" class="btn btn-purple btn-labeled btn-labeled-left">
-                            <b><i class="icon-plus3"></i></b>Tambah
-                        </a>
-                    @endif
-                    <button type="button" onclick="reload_table(table)" class="btn btn-warning btn-labeled btn-labeled-left">
-                        <b><i class="icon-reload-alt"></i></b>Reload
-                    </button>
-                    <button type="button" onclick="cetak()" class="btn btn-teal btn-labeled btn-labeled-left">
-                        <b><i class="icon-printer"></i></b>Cetak
-                    </button>
+                    <table class="table datatable-show-all table-xs table-hover" id="tableData">
+                        <thead>
+                            <tr>
+                                <th class="text-center" width="5%">#</th>
+                                <th width="15%">Label</th>
+                                {{-- <th width="10%">Buyer</th> --}}
+                                <th width="10%">Supplier & Komoditas</th>
+                                <th width="10%">Container Size</th>
+                                <th width="10%">Price</th>
+                                <th width="10%">Profit</th>
+                                <th width="10%">Tgl Dibuat</th>
+                                <th width="10%" class="text-center">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
                 </div>
 
-                <table class="table datatable-show-all table-xs table-hover" id="tableData">
-                    <thead>
-                        <tr>
-                            <th class="text-center" width="5%">#</th>
-                            <th width="15%">Label</th>
-                            {{-- <th width="10%">Buyer</th> --}}
-                            <th width="10%">Supplier & Komoditas</th>
-                            <th width="10%">Container Size</th>
-                            <th width="10%">Price</th>
-                            <th width="10%">Profit</th>
-                            <th width="10%">Tgl Dibuat</th>
-                            <th width="10%" class="text-center">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
             </div>
 
         </div>

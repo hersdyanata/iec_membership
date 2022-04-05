@@ -15,7 +15,7 @@ use App\Services\GrantedService;
 class MstBuyerController extends Controller
 {
     public function __construct(){
-        $this->middleware(['auth', 'granted']);
+        $this->middleware(['auth', 'granted', 'verified']);
     }
 
     public function index(){

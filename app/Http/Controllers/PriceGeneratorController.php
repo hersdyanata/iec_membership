@@ -30,7 +30,7 @@ use PDF;
 class PriceGeneratorController extends Controller
 {
     public function __construct(){
-        $this->middleware(['auth', 'granted']);
+        $this->middleware(['auth', 'granted', 'verified']);
     }
 
     public function index(){
@@ -47,7 +47,7 @@ class PriceGeneratorController extends Controller
                     'title' => 'Buat Pricing Baru',
                     'komponen_fix' => $biaya->where('komp_type', 'fixed'),
                     'komponen_persentase' => $biaya->where('komp_type', 'persentase'),
-                    'supplier' => Supplier::all(),
+                    'supplier' => Supplier::where('supplier_createdby', session('user_id'))->get(),
                     'buyer' => Buyer::all(),
                     'containers' => $globvars->container_size(),
                     'packs' => Packing::all()

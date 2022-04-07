@@ -26,6 +26,7 @@ Route::get('/', function () {
 Route::name('main.')->group(function () {
     Route::get('dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard.index');
     Route::resource('profile', App\Http\Controllers\ProfileController::class);
+
     Route::resource('compro', App\Http\Controllers\ComproController::class);
     Route::resource('member', App\Http\Controllers\MemberController::class);
 });
@@ -68,6 +69,12 @@ Route::name('masterdata.')->group(function () {
     
     Route::resource('masterdata/mst_buyer', App\Http\Controllers\MstBuyerController::class);
     Route::post('masterdata/mst_buyer/list', [App\Http\Controllers\MstBuyerController::class, 'list'])->name('mst_buyer.list');
+
+    /* Masterdata wilayah */
+    Route::get('wilayah/provinsi', [App\Http\Controllers\Mst_WilayahController::class, 'get_provinsi'])->name('wilayah.provinsi');
+    Route::get('wilayah/kota/{provinsi}', [App\Http\Controllers\Mst_WilayahController::class, 'get_kota'])->name('wilayah.kota');
+    Route::get('wilayah/kecamatan/{kota}', [App\Http\Controllers\Mst_WilayahController::class, 'get_kecamatan'])->name('wilayah.kecamatan');
+    Route::get('wilayah/kelurahan/{kecamatan}', [App\Http\Controllers\Mst_WilayahController::class, 'get_kelurahan'])->name('wilayah.kelurahan');
 });
 
 Route::name('tools.')->group(function () {

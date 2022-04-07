@@ -6,9 +6,16 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use DB;
+use Auth;
 
 use App\Services\CustDataTables;
 use App\Services\GrantedService;
+use App\Services\Mst_WilayahService;
+use App\Services\MemberService;
+
+use App\Models\MstRegionalModel as Regional;
+use App\Models\MemberTypeModel as Memtype;
+use App\Models\MemberProfileModel as Profile;
 
 class ProfileController extends Controller
 {
@@ -16,10 +23,14 @@ class ProfileController extends Controller
         $this->middleware(['auth', 'granted', 'verified']);
     }
 
-    public function index(){
+    public function index(Mst_WilayahService $wilayah, MemberService $member){
         return view('modules.profile.index')
                 ->with([
                     'title' => 'Profile',
+                    'profile' => $member->status_profile(Auth::user()->id),
+                    'provinsi' => $wilayah->provinsi(),
+                    'regionals' => Regional::all(),
+                    'member_type' => Memtype::all()
                 ]);
     }
 
@@ -31,8 +42,9 @@ class ProfileController extends Controller
         //
     }
 
-    public function show($id){
-        //
+    public function show(MemberService $member, $id){
+        $res = $member->status_profile($id);
+        return response()->json($res, 200);
     }
 
     public function edit($id){
@@ -40,7 +52,30 @@ class ProfileController extends Controller
     }
 
     public function update(Request $request, $id){
-        //
+        $put = Profile::find($id);
+        $put->profile_gender = $request->profile_gender;
+        $put->profile_no_anggota = $request->profile_no_anggota;
+        $put->profile_tempat_lahir = $request->profile_tempat_lahir;
+        $put->profile_tanggal_lahir = date('Y-m-d', strtotime($request->profile_tanggal_lahir));
+        $put->profile_alamat = $request->profile_alamat;
+        $put->profile_provinsi = $request->profile_provinsi;
+        $put->profile_kota = $request->profile_kota;
+        $put->profile_kecamatan = $request->profile_kecamatan;
+        $put->profile_kelurahan = $request->profile_kelurahan;
+        $put->profile_kodepos = $request->profile_kodepos;
+        $put->profile_regional = $request->profile_regional;
+        $put->profile_tele_id = $request->profile_tele_id;
+        $put->profile_wa = $request->profile_wa;
+        $put->profile_member_type = $request->profile_member_type;
+        $put->profile_updatedat = date('Y-m-d H:i:s');
+        $put->save();
+
+        $res = [
+            'msg_title' => 'Berhasil',
+            'msg_body' => 'Perubahan biodata telah disimpan'
+        ];
+
+        return response()->json($res, 200);
     }
 
     public function destroy($id){

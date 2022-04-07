@@ -14,6 +14,7 @@ class MemberProfileModel extends Model
 
     protected $fillable = [
         'profile_user_id',
+        'profile_no_anggota',
         'profile_gender',
         'profile_tempat_lahir',
         'profile_tanggal_lahir',
@@ -22,10 +23,12 @@ class MemberProfileModel extends Model
         'profile_kota',
         'profile_kecamatan',
         'profile_kelurahan',
+        'profile_kodepos',
         'profile_regional',
         'profile_tele_id',
         'profile_wa',
         'profile_member_type',
+        'profile_updatedat'
     ];
 
 }

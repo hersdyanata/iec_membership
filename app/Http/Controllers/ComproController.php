@@ -40,7 +40,7 @@ class ComproController extends Controller
     }
 
     public function update(Request $request, $id){
-        //
+        dd($request->all());
     }
 
     public function destroy($id){

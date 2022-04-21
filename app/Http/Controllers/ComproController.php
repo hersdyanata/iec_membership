@@ -7,6 +7,10 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use DB;
 
+use App\Models\MstHSParentModel as HSParent;
+use App\Models\MstHSParentSubModel as HSSubParent;
+use App\Models\MstHSChildModel as HSChild;
+
 use App\Services\CustDataTables;
 use App\Services\GrantedService;
 
@@ -20,6 +24,9 @@ class ComproController extends Controller
         return view('modules.compro.index')
                 ->with([
                     'title' => 'Company Profile',
+                    'hsp' => HSParent::all(),
+                    // 'hss' => HSSubParent::all(),
+                    // 'hsc' => HSChild::all()
                 ]);
     }
 
@@ -40,7 +47,7 @@ class ComproController extends Controller
     }
 
     public function update(Request $request, $id){
-        dd($request->all());
+        //
     }
 
     public function destroy($id){

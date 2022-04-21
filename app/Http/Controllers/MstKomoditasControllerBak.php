@@ -11,8 +11,6 @@ use App\Http\Requests\MstKomoditasRequest;
 use App\Models\MstKomoditasModel as Komoditas;
 use App\Models\PricingModel as Pricing;
 
-use App\Models\MstHSParentModel as HSP;
-
 use App\Services\CustDataTables;
 use App\Services\GrantedService;
 
@@ -25,7 +23,6 @@ class MstKomoditasController extends Controller
     public function index(){
         return view('modules.mst_komoditas.index')
                 ->with([
-                    'hs_parent' => HSP::all(),
                     'title' => 'Komoditas',
                 ]);
     }
@@ -91,32 +88,16 @@ class MstKomoditasController extends Controller
     }
     
     public function list(CustDataTables $dtt, GrantedService $granted, Request $request){
-        $kondisi = '';
-        if(!empty($request->params)){
-            $kondisi = " where hsp_code like '".$request->params."%'";
-        }
-
         $colSearch = array(
-            'hsp_code', 'parent', 'hsp_desc_ina'
+            'komoditas_nama', 'komoditas_prefix',
         );
         
         $colOrder = array(
-            null, 'hsp_code', 'parent', 'hsp_desc_ina'
+            null, 'komoditas_nama', 'komoditas_prefix',
         );
 
-        $q = "select * from (
-                select hsp_code, hsp_code parent, hsp_desc_ina, hsp_desc_eng
-                  from hs_parent
-                 union
-                select hss_code, hss_parent_code, hss_desc_ina, hss_desc_eng
-                  from hs_parent_sub
-                 union
-                select hsc_code, hsc_sub_code, hsc_desc_ina, hsc_desc_eng
-                  from hs_child
-                  left join hs_parent_sub on hss_code = hsc_sub_code
-                order by hsp_code
-            ) f ".$kondisi;
-        $order = 'order by hsp_code asc';
+        $q = "select * from mst_komoditas where komoditas_createdby = ".session('user_id');
+        $order = 'order by komoditas_nama asc';
         
         $dtt->set_table($q);
         $dtt->set_col_order($colOrder);
@@ -132,10 +113,10 @@ class MstKomoditasController extends Controller
             $no++;
             $dtRow = array();
             $dtRow[] = '<div class="text-center">'.$no.'</div>';
-            $dtRow[] = $r->hsp_code;
-            // $dtRow[] = $r->parent;
-            $dtRow[] = $r->hsp_desc_ina;
-            $dtRow[] = $r->hsp_desc_eng;
+            $dtRow[] = $r->komoditas_nama;
+            $dtRow[] = $r->komoditas_prefix;
+            $dtRow[] = $r->komoditas_spesifikasi;
+            $dtRow[] = '<div class="text-center">'.$granted->action_buttons('masterdata.mst_komoditas.edit', $r->komoditas_id, $request->page_permission).'</div>';
             $data[] = $dtRow;
         }
 

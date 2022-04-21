@@ -84,16 +84,30 @@
 								</div>
 							</div>
 
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                                 <div class="row">
-                                    <div class="col-lg-12">
-                                        <label>Komoditas</label>
-                                        <select class="select" name="comp_komoditas" id="comp_komoditas">
-											<option value="">-- Pilih Komoditas --</option> 
+                                    <div class="col-lg-4">
+                                        <label>HS Code Induk</label>
+                                        <select name="hs_parent" id="hs_parent" class="form-control form-control-lg select-search">
+											<option value="">Pilih HS Code Induk</option>											
+										</select>
+                                    </div>
+
+									<div class="col-lg-4">
+                                        <label>Sub Code</label>
+                                        <select name="hs_sub" id="hs_sub" class="form-control form-control-lg select-search">
+											<option value="">Pilih Sub Code</option>											
+										</select>
+                                    </div>
+
+									<div class="col-lg-4">
+                                        <label>HS Code</label>
+                                        <select name="hs_code" id="hs_code" class="form-control form-control-lg select-search">
+											<option value="">Pilih HS Code</option>											
 										</select>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
 				
 							<div class="form-group">
 								<div class="row">
@@ -137,9 +151,14 @@
                                     </div>
                                 </div>
                             </div>
-				
-							<div class="text-left">
-								<button type="button" onclick="simpan_profile()" class="btn btn-primary">Simpan</button>
+							<div class="row">
+								@include('modules.compro.produk')
+							</div><br><hr>
+
+							<div class="row">
+								<div class="text-left">
+									<button type="button" onclick="simpan_profile()" class="btn btn-primary">Simpan</button>
+								</div>
 							</div>
 						</form>
 					</div>
@@ -172,7 +191,7 @@
 
 @section('page_js')
 <script>
-
+	sidebar_collapsed();
 	var bprovinsi = "";
 	var bkota = "";
 	var bkecamatan = "";
@@ -190,8 +209,17 @@
 		kelurahan(this.value);
 	});
 
+	$('#hs_parent').on('change', function(){
+		hs_sub(this.value);
+	});
+
+	$('#hs_sub').on('change', function(){
+		hs_code(this.value);
+	});
+
 	// status_kelengkapan_profile();
 	provinsi();
+	// hs_parent();
 
 	function provinsi(){
 		$.ajax({
@@ -343,5 +371,66 @@
 			}
 		});
 	}
+
+	function hs_parent(){
+		$.ajax({
+			url: "{{ route('masterdata.hs.parent') }}",
+			type: "GET",
+			datatype: "JSON",
+			beforeSend: function(){
+				small_loader_open('hs_parent');
+			},
+			success: function(res){
+				$('#hs_parent').html(res);
+			},
+			error: function (jqXHR, textStatus, errorThrown){
+				alert('Error get data from ajax');
+			},
+			complete: function(){
+				small_loader_close('hs_parent');
+			}
+		});
+	}
+
+	function hs_sub(parent){
+		$.ajax({
+			url: "{{ route('masterdata.hs.sub', ':id') }}".replace(':id', parent),
+			type: "GET",
+			datatype: "JSON",
+			beforeSend: function(){
+				small_loader_open('hs_sub');
+			},
+			success: function(res){
+				$('#hs_sub').html(res);
+			},
+			error: function (jqXHR, textStatus, errorThrown){
+				alert('Error get data from ajax');
+			},
+			complete: function(){
+				small_loader_close('hs_sub');
+			}
+		});
+	}
+
+	function hs_code(sub){
+		$.ajax({
+			url: "{{ route('masterdata.hs.code', ':id') }}".replace(':id', sub),
+			type: "GET",
+			datatype: "JSON",
+			beforeSend: function(){
+				small_loader_open('hs_code');
+			},
+			success: function(res){
+				$('#hs_code').html(res);
+			},
+			error: function (jqXHR, textStatus, errorThrown){
+				alert('Error get data from ajax');
+			},
+			complete: function(){
+				small_loader_close('hs_code');
+			}
+		});
+	}
+
 </script>
 @endsection

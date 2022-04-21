@@ -75,6 +75,11 @@ Route::name('masterdata.')->group(function () {
     Route::get('wilayah/kota/{provinsi}', [App\Http\Controllers\Mst_WilayahController::class, 'get_kota'])->name('wilayah.kota');
     Route::get('wilayah/kecamatan/{kota}', [App\Http\Controllers\Mst_WilayahController::class, 'get_kecamatan'])->name('wilayah.kecamatan');
     Route::get('wilayah/kelurahan/{kecamatan}', [App\Http\Controllers\Mst_WilayahController::class, 'get_kelurahan'])->name('wilayah.kelurahan');
+
+    /* Masterdata HS Code */
+    Route::get('hs/parent', [App\Http\Controllers\Mst_HSController::class, 'get_parent'])->name('hs.parent');
+    Route::get('hs/sub/{parent}', [App\Http\Controllers\Mst_HSController::class, 'get_sub'])->name('hs.sub');
+    Route::get('hs/code/{sub}', [App\Http\Controllers\Mst_HSController::class, 'get_hscode'])->name('hs.code');
 });
 
 Route::name('tools.')->group(function () {

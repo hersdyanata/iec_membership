@@ -70,6 +70,9 @@ Route::name('masterdata.')->group(function () {
     Route::resource('masterdata/mst_buyer', App\Http\Controllers\MstBuyerController::class);
     Route::post('masterdata/mst_buyer/list', [App\Http\Controllers\MstBuyerController::class, 'list'])->name('mst_buyer.list');
 
+    Route::resource('masterdata/mst_pelabuhan', App\Http\Controllers\MstPelabuhanController::class);
+    Route::post('masterdata/mst_pelabuhan/list', [App\Http\Controllers\MstPelabuhanController::class, 'list'])->name('mst_pelabuhan.list');
+
     /* Masterdata wilayah */
     Route::get('wilayah/provinsi', [App\Http\Controllers\Mst_WilayahController::class, 'get_provinsi'])->name('wilayah.provinsi');
     Route::get('wilayah/kota/{provinsi}', [App\Http\Controllers\Mst_WilayahController::class, 'get_kota'])->name('wilayah.kota');
